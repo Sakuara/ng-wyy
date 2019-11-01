@@ -8,6 +8,8 @@ import zh from '@angular/common/locales/zh';
 import { SharedModule } from './shared/shared.module';
 import { AppRoutingModule } from './app-routing.module';
 import { RoutesModule } from './routes/routes.module';
+import { API_URL, ApiService } from './core/api.service';
+import { environment } from 'src/environments/environment';
 
 registerLocaleData(zh);
 
@@ -21,7 +23,11 @@ registerLocaleData(zh);
     RoutesModule,
     AppRoutingModule,
   ],
-  providers: [{ provide: NZ_I18N, useValue: zh_CN }],
+  providers: [
+    { provide: NZ_I18N, useValue: zh_CN },
+    ApiService,
+    { provide: API_URL, useValue: environment.baseUrl }
+  ],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

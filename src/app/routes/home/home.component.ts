@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { HomeService } from '../home.service';
+import { Banner } from './models';
 
 @Component({
   selector: 'app-home',
@@ -7,9 +9,17 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HomeComponent implements OnInit {
 
-  constructor() { }
+  bannerLists: Banner[];
+  constructor(
+    private homeService: HomeService,
+  ) { }
 
   ngOnInit() {
+    this.homeService.getBanner().subscribe(
+      res => {
+        this.bannerLists = res;
+      }
+    )
   }
 
 }

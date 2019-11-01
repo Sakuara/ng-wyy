@@ -1,1 +1,14 @@
-<p>carousel works!</p>
+<div class="wrap">
+    <i nz-icon nzType="left" nzTheme="outline"></i>
+    <nz-carousel #nzCarousel nzAutoPlay [nzDotRender]="dot" nzEffect="fade">
+        <div nz-carousel-content *ngFor="let banner of bannerLists;let i=index;">
+            <a [href]="banner.url">
+                <img [src]="banner.imageUrl">
+            </a>
+        </div>
+    </nz-carousel>
+    <ng-template #dot>
+        <i nz-icon nzType="right" nzTheme="outline"></i>
+    </ng-template>
+    <i nz-icon nzType="right" nzTheme="outline"></i>
+</div>
