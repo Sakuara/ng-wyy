@@ -1,11 +1,26 @@
-<nz-layout class="site">
-    <nz-header class="header">
-        header
-    </nz-header>
-    <nz-content class="content">
-        <router-outlet></router-outlet>
-    </nz-content>
-    <nz-footer class="footer">
-        kaven
-    </nz-footer>
-</nz-layout>
+<div id="app">
+    <nz-layout class="layout">
+        <nz-header class="header">
+            <div class="left flex">
+                <a class="logo">
+                    <img src="" alt="">
+                    <span>网易云音乐</span>
+                </a>
+                <ul nz-menu nzMode="horizontal" nzTheme="dark">
+                    <li nz-menu-item>发现音乐</li>
+                </ul>
+            </div>
+            <div class="right flex">
+                <input nz-input placeholder="音乐/视频/电台/用户">
+                <div>创作者中心</div>
+                <a href="#">登录</a>
+            </div>
+        </nz-header>
+        <nz-content class="content">
+            <router-outlet></router-outlet>
+        </nz-content>
+        <nz-footer class="footer">
+            kaven
+        </nz-footer>
+    </nz-layout>
+</div>

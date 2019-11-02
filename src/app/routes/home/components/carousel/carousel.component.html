@@ -1,14 +1,14 @@
 <div class="wrap">
-    <i nz-icon nzType="left" nzTheme="outline"></i>
-    <nz-carousel #nzCarousel nzAutoPlay [nzDotRender]="dot" nzEffect="fade">
+    <i class="arrow left" nz-icon nzType="left" nzTheme="outline" (click)="nzCarousel.pre()"></i>
+    <nz-carousel #nzCarousel nzAutoPlay [nzDotRender]="dot" nzEffect="fade" (nzBeforeChange)="beforeChange($event)">
         <div nz-carousel-content *ngFor="let banner of bannerLists;let i=index;">
             <a [href]="banner.url">
                 <img [src]="banner.imageUrl">
             </a>
         </div>
     </nz-carousel>
-    <ng-template #dot>
-        <i nz-icon nzType="right" nzTheme="outline"></i>
+    <ng-template #dot let-number>
+        <i class="dot" [class.active]="activedIndex === number" nz-icon nzType="pay-circle" nzTheme="outline"></i>
     </ng-template>
-    <i nz-icon nzType="right" nzTheme="outline"></i>
+    <i class="arrow right" nz-icon nzType="right" nzTheme="outline" (click)="nzCarousel.next()"></i>
 </div>

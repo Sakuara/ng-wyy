@@ -1,3 +1,3 @@
-<div class="banner">
-    <app-carousel [bannerLists]="bannerLists"></app-carousel>
+<div class="banner" #banner>
+    <app-carousel [bannerLists]="bannerLists" (nzBeforeChange)="beforeChange($event)"></app-carousel>
 </div>

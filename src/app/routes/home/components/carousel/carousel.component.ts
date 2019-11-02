@@ -1,4 +1,4 @@
-import { Component, OnInit, Input } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
 import { Banner } from '../../models';
 
 @Component({
@@ -8,10 +8,19 @@ import { Banner } from '../../models';
 })
 export class CarouselComponent implements OnInit {
 
+  currentBg: {};
+  activedIndex = 0;
   @Input() bannerLists: Banner[];
+  @Output() nzBeforeChange = new EventEmitter<number>();
   constructor() { }
 
+  beforeChange({ from, to }) {
+    this.activedIndex = to;
+    this.nzBeforeChange.emit(to);
+  }
+
   ngOnInit() {
+
   }
 
 }
