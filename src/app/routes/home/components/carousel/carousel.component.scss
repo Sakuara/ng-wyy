@@ -17,11 +17,11 @@
   }
 
   .arrow.left {
-    left: calc(50% - 425px);
+    left: calc(50% - 565px);
   }
 
   .arrow.right {
-    right: calc(50% - 425px);
+    right: calc(50% - 565px);
   }
 
   nz-carousel {
@@ -37,7 +37,7 @@
         height: 100%;
 
         &>img {
-          width: 730px;
+          width: 980px;
           height: 285px;
         }
       }

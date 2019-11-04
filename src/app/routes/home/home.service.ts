@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { ApiService } from '../core/api.service';
+import { ApiService } from '../../core/api.service';
 import { Observable } from 'rxjs';
-import { Banner } from './home/models/index';
+import { Banner, SongList } from './models/index';
 import { map } from "rxjs/operators";
 
 @Injectable({
@@ -17,5 +17,11 @@ export class HomeService {
     return this.api.get('banner',{type: 0}).pipe(
       map((res: { banners: Banner[] }) => res.banners)
     )
+  }
+
+  getRecomand(limit?): Observable<SongList[]> {
+    return this.api.get('personalized',{limit: limit}).pipe(
+      map((res: {result: SongList[]}) => res.result)
+    );
   }
 }

@@ -10,18 +10,20 @@ import { AppRoutingModule } from './app-routing.module';
 import { RoutesModule } from './routes/routes.module';
 import { API_URL, ApiService } from './core/api.service';
 import { environment } from 'src/environments/environment';
+import { RankComponent } from './rank/rank.component';
 
 registerLocaleData(zh);
 
 @NgModule({
   declarations: [
     AppComponent,
+    RankComponent,
   ],
   imports: [
     BrowserModule,
     SharedModule,
     RoutesModule,
-    AppRoutingModule,
+    // AppRoutingModule,
   ],
   providers: [
     { provide: NZ_I18N, useValue: zh_CN },

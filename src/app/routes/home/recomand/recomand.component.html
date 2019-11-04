@@ -1,0 +1,21 @@
+<div class="banner" #banner>
+    <app-carousel [bannerLists]="bannerLists" (nzBeforeChange)="beforeChange($event)"></app-carousel>
+</div>
+<div class="wrap">
+    <div class="left">
+        <h1>try grid</h1>
+        <div class="container">
+            <div *ngFor="let song of songLists;let i=index">
+                <div class="top">
+                    <img [src]="song.picUrl">
+                </div>
+                <div class="bottom">
+                    {{song.name}}
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="right">
+
+    </div>
+</div>

@@ -1,4 +1,24 @@
-.banner{
-    background-size: 6000px;
-    background-position: center center;
+.home {
+    nav{
+        background-color: #c20c0c;
+        border-bottom: 1px solid #a40011;
+        height: 35px;
+        color: #fff;
+        padding-left: 50px;
+        font-size: 12px;
+        ul{
+            display: flex;
+            align-items: center;
+            height: 100%;
+            li{
+                padding: 3px 8px;
+                border-radius: 20px;
+                margin-right: 10px;
+            }
+            li:hover{
+                background: #333;
+                opacity: 0.3;
+            }
+        }
+    }
 }
