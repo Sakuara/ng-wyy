@@ -3,16 +3,47 @@
 </div>
 <div class="wrap">
     <div class="left">
-        <h1>try grid</h1>
+        <div class="title">
+            <h1>热门推荐</h1>
+            <a href="#" class="more">
+                更多
+                <i nz-icon type="arrow-right" nzTheme="outline"></i>
+            </a>
+        </div>
         <div class="container">
             <div *ngFor="let song of songLists;let i=index">
                 <div class="top">
                     <img [src]="song.picUrl">
+                    <div class="info">
+                        <span>
+                            <i nz-icon nzType="customer-service" nzTheme="outline"></i>
+                            {{song.playCount}}
+                        </span>
+                        <span>
+                            <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+                        </span>
+                    </div>
                 </div>
                 <div class="bottom">
                     {{song.name}}
                 </div>
             </div>
+        </div>
+
+        <div class="title">
+            <h1>新碟上架</h1>
+            <a href="#" class="more">
+                更多
+                <i nz-icon type="arrow-right" nzTheme="outline"></i>
+            </a>
+        </div>
+
+        <div class="title">
+            <h1>榜单</h1>
+            <a href="#" class="more">
+                更多
+                <i nz-icon type="arrow-right" nzTheme="outline"></i>
+            </a>
         </div>
     </div>
     <div class="right">

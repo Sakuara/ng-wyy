@@ -4,20 +4,28 @@
         border-bottom: 1px solid #a40011;
         height: 35px;
         color: #fff;
-        padding-left: 50px;
         font-size: 12px;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
         ul{
             display: flex;
             align-items: center;
             height: 100%;
             li{
-                padding: 3px 8px;
-                border-radius: 20px;
-                margin-right: 10px;
-            }
-            li:hover{
-                background: #333;
-                opacity: 0.3;
+                width: 84px;
+                height: 100%;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                a{
+                    color: #fff;
+                    padding: 3px 12px;
+                    border-radius: 20px;
+                }
+                a:hover{
+                    background: #9B0909;
+                }
             }
         }
     }

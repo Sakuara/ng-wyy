@@ -17,11 +17,11 @@
   }
 
   .arrow.left {
-    left: calc(50% - 565px);
+    left: calc(50% - 570px);
   }
 
   .arrow.right {
-    right: calc(50% - 565px);
+    right: calc(50% - 575px);
   }
 
   nz-carousel {
@@ -37,8 +37,9 @@
         height: 100%;
 
         &>img {
-          width: 980px;
+          width: 730px;
           height: 285px;
+          margin-right: 250px;
         }
       }
     }
@@ -50,6 +51,23 @@
 
   .dot.active {
     color: red;
+  }
+}
+
+.dl{
+  position: absolute;
+  top: 0;
+  left: calc(50% + 239px);
+  width: 251px;
+  height: 100%;
+  background: url('../../../../../assets/imgs/download.png') no-repeat 0 0;
+  .dl-btn{
+    display: block;
+    width: 215px;
+    height: 56px;
+    margin: 186px 0 0 19px;
+    background-position:0 9999px ;
+    text-indent: -9999px;
   }
 }
 

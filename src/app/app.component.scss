@@ -62,12 +62,16 @@
   border-bottom: 1px solid #000;
 }
 
+:host ::ng-deep .ant-menu-dark.ant-menu{
+  background: #242424;
+}
+
 :host ::ng-deep .ant-menu-horizontal {
   height: 64px;
   line-height: 64px;
 }
 
-:host ::ng-deep .ant-menu-dark .antd-menu-item:hover,
+:host ::ng-deep .antd-menu-item:hover,
 :host ::ng-deep .ant-menu.ant-menu-dark .ant-menu-item-selected {
-  background: #333;
+  background: #000;
 }
