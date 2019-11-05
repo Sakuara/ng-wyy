@@ -1,0 +1,14 @@
+.login-box {
+    height: 126px;
+    width: 100%;
+    color: #333;;
+    background: url('../../../../../assets//imgs/index.png') no-repeat;
+    background-position: 0 0;
+    font-size: 12px;
+    .unlogin{
+        padding: 20px;
+        button {
+            margin-left: calc(50% - 44px);
+        }
+    }
+}

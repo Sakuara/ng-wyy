@@ -1,0 +1,27 @@
+.top {
+//   width: 140px;
+//   height: 140px;
+  position: relative;
+
+  img {
+    cursor: pointer;
+    width: 100%;
+    height: 100%;
+  }
+
+  &>.info {
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    height: 27px;
+    background: #333;
+    z-index: 9;
+    width: 100%;
+    color: #ccc;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 12px;
+    padding: 0 10px;
+  }
+}

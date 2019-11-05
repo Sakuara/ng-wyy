@@ -1,0 +1,17 @@
+<ng-container>
+    <div class="top">
+        <img [src]="song.picUrl">
+        <div class="info">
+            <span>
+                <i nz-icon nzType="customer-service" nzTheme="outline"></i>
+                {{song.playCount | playCount}}
+            </span>
+            <span>
+                <i nz-icon nzType="play-circle" nzTheme="outline"></i>
+            </span>
+        </div>
+    </div>
+    <div class="bottom">
+        {{song.name}}
+    </div>
+</ng-container>

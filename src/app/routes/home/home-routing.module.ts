@@ -3,6 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { HomeComponent } from './home.component';
 import { RankComponent } from 'src/app/rank/rank.component';
 import { RecomandComponent } from './recomand/recomand.component';
+import { RecomandResolveService } from './services/recomand-resolve.service';
 
 
 const routes: Routes = [
@@ -13,6 +14,12 @@ const routes: Routes = [
       {
         path: 'recomand',
         component: RecomandComponent,
+        data: {
+          title: 'recomand'
+        },
+        resolve: {
+          recomandDatas: RecomandResolveService
+        }
       },{
         path: 'rank',
         component: RankComponent
@@ -27,6 +34,9 @@ const routes: Routes = [
 
 @NgModule({
   imports: [RouterModule.forChild(routes)],
-  exports: [RouterModule]
+  exports: [RouterModule],
+  providers: [
+    RecomandResolveService
+  ]
 })
 export class HomeRoutingModule { }

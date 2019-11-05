@@ -3,50 +3,73 @@
 </div>
 <div class="wrap">
     <div class="left">
-        <div class="title">
-            <h1>热门推荐</h1>
-            <a href="#" class="more">
-                更多
-                <i nz-icon type="arrow-right" nzTheme="outline"></i>
-            </a>
-        </div>
-        <div class="container">
-            <div *ngFor="let song of songLists;let i=index">
-                <div class="top">
-                    <img [src]="song.picUrl">
-                    <div class="info">
-                        <span>
-                            <i nz-icon nzType="customer-service" nzTheme="outline"></i>
-                            {{song.playCount}}
-                        </span>
-                        <span>
-                            <i nz-icon nzType="play-circle" nzTheme="outline"></i>
-                        </span>
-                    </div>
-                </div>
-                <div class="bottom">
-                    {{song.name}}
-                </div>
+        <div class="box">
+            <div class="title">
+                <h1>
+                    热门推荐
+                    <ul>
+                        <li *ngFor="let tag of hotTags;let i=index;">
+                            {{tag.name}}
+                            <em *ngIf="i !== hotTags.length-1">|</em>
+                        </li>
+                    </ul>
+                </h1>
+                <a href="#" class="more">
+                    更多
+                    <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+                </a>
+            </div>
+            <div class="container">
+                <ng-container *ngFor="let song of songLists;let i=index">
+                    <app-cell [song]="song" [cardWidth]="140" [cardHeight]="140"></app-cell>
+                </ng-container>
             </div>
         </div>
 
-        <div class="title">
-            <h1>新碟上架</h1>
-            <a href="#" class="more">
-                更多
-                <i nz-icon type="arrow-right" nzTheme="outline"></i>
-            </a>
-        </div>
+        <div class="box">
+            <div class="title">
+                <h1>新碟上架</h1>
+                <a href="#" class="more">
+                    更多
+                    <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+                </a>
+            </div>
+            <div class="content">
 
-        <div class="title">
-            <h1>榜单</h1>
-            <a href="#" class="more">
-                更多
-                <i nz-icon type="arrow-right" nzTheme="outline"></i>
-            </a>
+            </div>
+        </div>
+        <div class="box">
+            <div class="title">
+                <h1>榜单</h1>
+                <a href="#" class="more">
+                    更多
+                    <i nz-icon nzType="arrow-right" nzTheme="outline"></i>
+                </a>
+            </div>
+            <div class="content">
+
+            </div>
         </div>
     </div>
     <div class="right">
-
+        <app-login-box></app-login-box>
+        <div class="list-box">
+            <div class="title">
+                <h1>入驻歌手</h1>
+                <a href="#" class="all">
+                    查看全部
+                    <i nz-icon nzType="right" nzTheme="outline"></i>
+                </a>
+            </div>
+            <ul class="singleslist">
+                <li *ngFor="let singer of inSingers;let i=index;">
+                    <img [src]="singer.picUrl" alt="歌手图片">
+                    <div>
+                        <h2>{{singer.name}}</h2>
+                        <p>{{singer.briefDesc}}</p>
+                    </div>
+                </li>
+            </ul>
+        </div>
     </div>
 </div>

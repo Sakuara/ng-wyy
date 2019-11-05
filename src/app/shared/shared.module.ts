@@ -5,6 +5,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
+import { CellComponent } from './components/cell/cell.component';
+import { PlayCountPipe } from './pipes/play-count.pipe';
 
 
 const MODULES = [
@@ -17,11 +19,17 @@ const MODULES = [
 ];
 const ThirdLibraryModule = [
   NgZorroAntdModule,
-]
+];
+const COMPONENTS = [
+  CellComponent
+];
+const PIPES = [
+  PlayCountPipe
+];
 
 
 @NgModule({
-  declarations: [],
+  declarations: [...COMPONENTS, ...PIPES],
   imports: [
     ...MODULES,
     ...ThirdLibraryModule,
@@ -29,6 +37,8 @@ const ThirdLibraryModule = [
   exports: [
     ...MODULES,
     ...ThirdLibraryModule,
+    ...COMPONENTS,
+    ...PIPES,
   ]
 })
 export class SharedModule { }
