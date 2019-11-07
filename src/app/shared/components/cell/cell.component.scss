@@ -23,5 +23,9 @@
     align-items: center;
     font-size: 12px;
     padding: 0 10px;
+    .play:hover{
+        cursor: pointer;
+        color: #fff;
+    }
   }
 }

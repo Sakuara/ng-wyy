@@ -1,6 +1,10 @@
 {
   "name": "ng-wyy",
   "version": "0.0.0",
+  "keywords": [
+    "angular8",
+    "ng-zorro-antd"
+  ],
   "scripts": {
     "ng": "ng",
     "start": "ng serve",

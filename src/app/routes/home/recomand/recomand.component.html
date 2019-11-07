@@ -21,7 +21,7 @@
             </div>
             <div class="container">
                 <ng-container *ngFor="let song of songLists;let i=index">
-                    <app-cell [song]="song" [cardWidth]="140" [cardHeight]="140"></app-cell>
+                    <app-cell [song]="song" [cardWidth]="140" [cardHeight]="140" (wyPlay)="play(song)"></app-cell>
                 </ng-container>
             </div>
         </div>

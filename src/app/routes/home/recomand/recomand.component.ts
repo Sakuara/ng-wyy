@@ -33,6 +33,10 @@ export class RecomandComponent implements OnInit {
     this.rd2.setStyle(this.banner.nativeElement, 'background-image', `url(${this.imgUrl})`);
   }
 
+  play(song){
+    console.log(song);
+  }
+
   ngOnInit() {
     this.route.data.pipe(
       map(res => res.recomandDatas)

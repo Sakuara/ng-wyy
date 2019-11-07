@@ -1,7 +1,15 @@
 /* You can add global styles to this file, and also import other style files */
+@import './assets/style/index.scss';
+
+@mixin flex {
+    display: flex;
+}
+
 .flex{
     display: flex;
 }
+
+// inital style
 body,html,body,h1,h2,h3,h4,h5,h6,ul,li,div,a{
     margin: 0;
     padding: 0;

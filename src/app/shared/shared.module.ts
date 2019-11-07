@@ -7,6 +7,7 @@ import { HttpClientModule } from '@angular/common/http';
 import { RouterModule } from '@angular/router';
 import { CellComponent } from './components/cell/cell.component';
 import { PlayCountPipe } from './pipes/play-count.pipe';
+import { PlayerModule } from './modules/player/player.module';
 
 
 const MODULES = [
@@ -16,6 +17,7 @@ const MODULES = [
   BrowserAnimationsModule,
   HttpClientModule,
   RouterModule,
+  PlayerModule,
 ];
 const ThirdLibraryModule = [
   NgZorroAntdModule,
