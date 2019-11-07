@@ -1,0 +1,16 @@
+@mixin icon($path, $width: 20px, $height: 20px, $mgright:2px) {
+  display: inline-block;
+  width: $width;
+  height: $height;
+  background: url($path) no-repeat;
+  cursor: pointer;
+  overflow: hidden;
+  margin-right: $mgright;
+  text-indent: -9999px;
+}
+
+@mixin flex($flex:flex, $justify-content:start, $align-items: start) {
+  display: $flex;
+  justify-content: $justify-content;
+  align-items: $align-items;
+}

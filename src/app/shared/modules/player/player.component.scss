@@ -1,21 +1,6 @@
+@import '../../../../assets/style/mixin.scss';
+@import '../../../../assets/style//extend.scss';
 $playbar: '../../../../assets/imgs/playbar.png';
-
-@mixin icon($path, $width: 20px, $height: 20px, $mgright:2px) {
-  display: inline-block;
-  width: $width;
-  height: $height;
-  background: url($path) no-repeat;
-  cursor: pointer;
-  overflow: hidden;
-  margin-right: $mgright;
-  text-indent: -9999px;
-}
-
-@mixin flex($flex:flex, $justify-content:start, $align-items: start) {
-  display: $flex;
-  justify-content: $justify-content;
-  align-items: $align-items;
-}
 
 .container {
   position: fixed;
@@ -121,10 +106,42 @@ $playbar: '../../../../assets/imgs/playbar.png';
     .play {
       width: 608px;
       position: relative;
+      padding-left: 10px;
+
+      .words {
+        font-size: 12px;
+        @include flex(flex, start, center);
+
+        a {
+          color: #e8e8e8;
+          cursor: pointer;
+          margin-right: 10px;
+
+          &:hover {
+            text-decoration: underline;
+          }
+        }
+
+        .name {
+          max-width: 300px;
+          @extend .text-overflow;
+        }
+
+        .link {
+          color: #e8e8e8;
+          cursor: pointer;
+
+          &:hover {
+            color: #fff;
+          }
+        }
+      }
 
       .slider-bar {
         width: 493px;
         height: 9px;
+        @include icon($playbar, 493px, 9px, 0);
+        display: flex;
         background-position: right 0;
       }
     }
