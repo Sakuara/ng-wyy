@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Inject } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Inject, ɵConsole, OnDestroy } from '@angular/core';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { filter, tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
@@ -8,12 +8,12 @@ import { DOCUMENT } from '@angular/common';
   templateUrl: './slider.component.html',
   styleUrls: ['./slider.component.scss']
 })
-export class SliderComponent implements OnInit,AfterViewInit {
+export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
 
-  @ViewChild('slider', {static: true}) slider: ElementRef;
+  @ViewChild('slider', { static: true }) slider: ElementRef;
   sliderDom: HTMLElement;
   start$: Observable<number>;
-  move$: Observable<number>;
+  move$: Observable<any>;
   end$: Observable<Event>;
   resize$: Subscription;
   offset = 0;
@@ -23,30 +23,29 @@ export class SliderComponent implements OnInit,AfterViewInit {
   ) { }
 
   resize() {
-    this.resize$ = fromEvent(window,'resize').subscribe(
+    this.resize$ = fromEvent(window, 'resize').subscribe(
       _ => {
         this.domRect = this.sliderDom.getBoundingClientRect();
-        console.log(this.domRect['x']);
+        console.log(this.domRect);
       }
     )
   }
 
   draggableObservalbe() {
-    this.start$ = fromEvent(this.sliderDom,'mousedown').pipe(
+    this.start$ = fromEvent(this.sliderDom, 'mousedown').pipe(
       filter(event => {
-        return event instanceof MouseEvent
+        return event instanceof MouseEvent;
       }),
       tap((e: Event) => {
         e.preventDefault();
         e.stopPropagation();
       }),
-      pluck('pageX'),
-      map((pos:number) => this.transferPostion(pos))
+      pluck('pageX')
     );
-
-    this.move$ = fromEvent(this.doc,'mousemove').pipe(
+    this.end$ = fromEvent(this.doc, 'mouseup');
+    this.move$ = fromEvent(this.doc, 'mousemove').pipe(
       filter(event => {
-        return event instanceof MouseEvent
+        return event instanceof MouseEvent;
       }),
       tap((e: Event) => {
         e.preventDefault();
@@ -54,39 +53,44 @@ export class SliderComponent implements OnInit,AfterViewInit {
       }),
       pluck('pageX'),
       distinctUntilChanged(),
-      map((pos:number) => this.transferPostion(pos)),
       takeUntil(this.end$)
     );
 
-    this.end$ = fromEvent(this.doc,'mouseup')
-  }
-
-  transferPostion(pos) {
-    return pos;
   }
 
   // computed initial offset
   computedOffset(pos) {
-    let all = this.domRect['width']; //总长度
-    let offset = pos - this.domRect['x']; // current position - initial x value
-    this.offset = offset*100/all;
+    const all = this.domRect['width']; // 总长度
+    const offset = pos - this.domRect['x']; // current position - initial x value
+    this.offset = offset * 100 / all;
+    if (this.offset < 0) {
+      this.offset = 0;
+    } else if (this.offset > 100) {
+      this.offset = 100;
+    }
   }
 
   ngOnInit() {
     this.sliderDom = this.slider.nativeElement;
-    this.domRect = this.sliderDom.getBoundingClientRect();//获取元素块初始的值
+    this.domRect = this.sliderDom.getBoundingClientRect(); // 获取元素块初始的值
     this.resize();
     this.draggableObservalbe();
     this.start$.subscribe(
       res => {
         this.computedOffset(res);
-        console.log(this.offset);
+        this.move$.subscribe(p => this.computedOffset(p));
       }
-    )
+    );
   }
 
   ngAfterViewInit() {
 
+  }
+
+  ngOnDestroy(): void {
+    if (this.resize$) {
+      this.resize$.unsubscribe();
+    }
   }
 
 }
