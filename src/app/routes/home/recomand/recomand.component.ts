@@ -3,6 +3,7 @@ import { Banner, SongList, Tag, InSinger } from '../models';
 import { HomeService } from '../services/home.service';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from "rxjs/operators";
+import { SongSheetService } from 'src/app/shared/services/song-sheet.service';
 
 @Component({
   selector: 'app-recomand',
@@ -22,6 +23,7 @@ export class RecomandComponent implements OnInit {
     private route: ActivatedRoute,
     private rd2: Renderer2,
     private homeService: HomeService,
+    private songSheetService: SongSheetService,
   ) { }
 
   beforeChange(activedIndex) {
@@ -33,8 +35,12 @@ export class RecomandComponent implements OnInit {
     this.rd2.setStyle(this.banner.nativeElement, 'background-image', `url(${this.imgUrl})`);
   }
 
-  play(song){
-    console.log(song);
+  play(id){
+    this.songSheetService.playSheet(id).subscribe(
+      res => {
+        console.log(res);
+      }
+    )
   }
 
   ngOnInit() {

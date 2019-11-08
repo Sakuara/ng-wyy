@@ -136,14 +136,6 @@ $playbar: '../../../../assets/imgs/playbar.png';
           }
         }
       }
-
-      .slider-bar {
-        width: 493px;
-        height: 9px;
-        @include icon($playbar, 493px, 9px, 0);
-        display: flex;
-        background-position: right 0;
-      }
     }
 
     .oper {

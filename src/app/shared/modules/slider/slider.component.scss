@@ -1,0 +1,11 @@
+@import '../../../../assets/style/mixin.scss';
+$statbar: '../../../../assets/imgs/statbar.png';
+
+.slider {
+  @include icon($statbar, 493px, 9px, 0);
+  background-position: right 8px;
+  position: relative;
+  display: block;
+  height: 24px;
+  overflow: visible;
+}

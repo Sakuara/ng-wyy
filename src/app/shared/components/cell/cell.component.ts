@@ -11,14 +11,14 @@ export class CellComponent implements OnInit {
   @Input() song;
   @Input() cardWidth;
   @Input() cardHeight;
-  @Output() wyPlay = new EventEmitter<void>();
+  @Output() wyPlay = new EventEmitter<number>();
   @HostBinding('style.width') width = this.cardWidth + 'px';
   @HostBinding('style.height') height = this.cardHeight + 'px';
 
   constructor() { }
 
-  playSong() {
-    this.wyPlay.emit();
+  playSong(id) {
+    this.wyPlay.emit(id);
   }
   ngOnInit() {
   }

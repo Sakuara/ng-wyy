@@ -1,0 +1,11 @@
+@import '../../../../../assets/style/mixin.scss';
+$thumb: '../../../../../assets/imgs/iconall.png';
+.slider-thumb {
+    position: absolute;
+    left: 0;
+    bottom: -5px;
+    @include icon($thumb,22px,24px,0);
+    display: block;
+    background-position: left -253px;
+    margin-left: -11px;
+}

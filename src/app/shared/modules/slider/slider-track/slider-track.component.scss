@@ -1,0 +1,9 @@
+@import '../../../../../assets/style/mixin.scss';
+$statbar: '../../../../../assets/imgs/statbar.png';
+
+.slider-track {
+  @include icon($statbar, 100%, 9px, 0);
+  background-position: right -65px;
+  display: block;
+  width: 0%;
+}
