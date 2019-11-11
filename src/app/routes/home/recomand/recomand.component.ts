@@ -4,6 +4,9 @@ import { HomeService } from '../services/home.service';
 import { ActivatedRoute } from '@angular/router';
 import { map, tap } from "rxjs/operators";
 import { SongSheetService } from 'src/app/shared/services/song-sheet.service';
+import { MusicStoreModule } from 'src/app/music-store';
+import { Store } from '@ngrx/store';
+import { SetSongList, SetPlayList, SetCurrentIndex } from 'src/app/music-store/actions/player.actions';
 
 @Component({
   selector: 'app-recomand',
@@ -24,6 +27,7 @@ export class RecomandComponent implements OnInit {
     private rd2: Renderer2,
     private homeService: HomeService,
     private songSheetService: SongSheetService,
+    private store$: Store<MusicStoreModule>,
   ) { }
 
   beforeChange(activedIndex) {
@@ -35,10 +39,13 @@ export class RecomandComponent implements OnInit {
     this.rd2.setStyle(this.banner.nativeElement, 'background-image', `url(${this.imgUrl})`);
   }
 
-  play(id){
+  play(id) {
     this.songSheetService.playSheet(id).subscribe(
       res => {
         console.log(res);
+        this.store$.dispatch(SetSongList({ songList: res }));
+        this.store$.dispatch(SetPlayList({ playList: res }));
+        this.store$.dispatch(SetCurrentIndex({ currentIndex: 0 }));
       }
     )
   }
