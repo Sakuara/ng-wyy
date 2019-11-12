@@ -67,6 +67,13 @@ $playbar: '../../../../assets/imgs/playbar.png';
     display: inline-flex;
     align-items: center;
 
+    .head{
+      img{
+        width: 36px;
+        height: 36px;
+      }
+    }
+
     .btns {
       display: flex;
       align-items: center;
@@ -91,6 +98,16 @@ $playbar: '../../../../assets/imgs/playbar.png';
 
         &:hover {
           background-position: -40px -204px;
+        }
+      }
+
+      .pause-btn {
+        width: 36px;
+        height: 36px;
+        background-position: 0 -165px;
+
+        &:hover {
+          background-position: -40px -165px;
         }
       }
 
@@ -135,6 +152,12 @@ $playbar: '../../../../assets/imgs/playbar.png';
             color: #fff;
           }
         }
+      }
+      .duration{
+        position: absolute;
+        color: #fff;
+        right: 5px;
+        bottom: 5px;
       }
     }
 

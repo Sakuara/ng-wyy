@@ -7,6 +7,7 @@ import { SongSheetService } from 'src/app/shared/services/song-sheet.service';
 import { MusicStoreModule } from 'src/app/music-store';
 import { Store } from '@ngrx/store';
 import { SetSongList, SetPlayList, SetCurrentIndex } from 'src/app/music-store/actions/player.actions';
+import { Song } from 'src/app/core/models';
 
 @Component({
   selector: 'app-recomand',
@@ -16,7 +17,7 @@ import { SetSongList, SetPlayList, SetCurrentIndex } from 'src/app/music-store/a
 export class RecomandComponent implements OnInit {
 
   bannerLists: Banner[];
-  songLists: SongList[];
+  songLists: Song[];
   hotTags: Tag[];
   inSingers: InSinger[];
   @ViewChild('banner', { static: true }) banner: ElementRef;
@@ -42,7 +43,7 @@ export class RecomandComponent implements OnInit {
   play(id) {
     this.songSheetService.playSheet(id).subscribe(
       res => {
-        console.log(res);
+        // 分发数据给仓库
         this.store$.dispatch(SetSongList({ songList: res }));
         this.store$.dispatch(SetPlayList({ playList: res }));
         this.store$.dispatch(SetCurrentIndex({ currentIndex: 0 }));

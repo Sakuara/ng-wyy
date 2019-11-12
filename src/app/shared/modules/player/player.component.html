@@ -9,20 +9,28 @@
         <div class="hand"></div>
         <div class="wrapper">
             <div class="btns">
-                <i class="pre"></i>
-                <i class="play-btn"></i>
-                <i class="next"></i>
+                <i class="pre" (click)="pre()"></i>
+                <i *ngIf="!playing" class="play-btn" (click)="play()"></i>
+                <i *ngIf="playing" class="pause-btn" (click)="pause()"></i>
+                <i class="next" (click)="next()"></i>
             </div>
             <div class="head">
-                <img src="https://p1.music.126.net/wB-3h7dsFbcS92O8Tdi5Bw==/109951164459703022.jpg?param=34y34" alt="">
+                <img [src]="picUrl" alt="music pic">
             </div>
             <div class="play">
                 <div class="words">
-                    <a class="name">我是一颗跳跳糖</a>
-                    <a>王一博</a>
+                    <a class="name">{{currentSong?.name}}</a>
+                    <ng-container *ngFor="let item of currentSong?.ar;last as isLast">
+                        <a>{{item.name}}
+                            <ng-container *ngIf="last == isLast">/</ng-container>
+                        </a>
+                    </ng-container>
                     <i class="link" nz-icon nzType="link" nzTheme="outline"></i>
                 </div>
-                <app-slider></app-slider>
+                <app-slider (endOffsetChange)="computedCurrentTime($event)"></app-slider>
+                <span class="duration">
+                    {{currentTime}}/{{ currentSong?.dt | duration }}
+                </span>
             </div>
             <div class="oper">
                 <i class="store"></i>
@@ -37,5 +45,6 @@
             </div>
         </div>
     </div>
-    <audio [hidden]="true" #audio></audio>
+
+    <audio #audio [src]="currentSong?.url" (canplay)="onCanPlay()" (timeupdate)="onTimeUpdate($event)"></audio>
 </div>

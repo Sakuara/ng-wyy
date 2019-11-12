@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Inject, ɵConsole, OnDestroy } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Inject, OnDestroy, Input, Output,EventEmitter } from '@angular/core';
 import { fromEvent, Observable, Subscription } from 'rxjs';
 import { filter, tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
@@ -18,6 +18,8 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   resize$: Subscription;
   offset = 0;
   domRect: DOMRect | ClientRect;
+  // @Input() endOffset = 0;
+  @Output() endOffsetChange = new EventEmitter<number>();
   constructor(
     @Inject(DOCUMENT) private doc: Document,
   ) { }

@@ -8,7 +8,8 @@ import { environment } from '../../environments/environment'
 @NgModule({
   declarations: [],
   imports: [
-    StoreModule.forRoot({ player: playerReducer },
+    StoreModule.forRoot(
+      { player: playerReducer },
       {
         runtimeChecks: {
           strictStateImmutability: true,
@@ -16,7 +17,8 @@ import { environment } from '../../environments/environment'
           strictStateSerializability: true,
           strictActionSerializability: true,
         },
-      }),
+      }
+    ),
     StoreDevtoolsModule.instrument({
       maxAge: 20,
       logOnly: environment.production
