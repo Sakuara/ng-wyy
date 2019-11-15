@@ -4,6 +4,7 @@ import { PlayerComponent } from './player.component';
 import { NgZorroAntdModule } from 'ng-zorro-antd';
 import { SliderModule } from '../slider/slider.module';
 import { DurationPipe } from './duration.pipe';
+import { FormsModule } from '@angular/forms';
 
 
 
@@ -15,7 +16,8 @@ import { DurationPipe } from './duration.pipe';
    imports: [
       CommonModule,
       NgZorroAntdModule,
-      SliderModule
+      SliderModule,
+      FormsModule,
    ],
    exports: [
       PlayerComponent

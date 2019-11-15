@@ -13,16 +13,18 @@ import { SetCurrentIndex } from 'src/app/music-store/actions/player.actions';
 })
 export class PlayerComponent implements OnInit {
 
-  playing: boolean;
+  playing: boolean = false;
   songList;
   playList;
   currentIndex: number;
   currentTime:string;
+  time = 0;
   playMode;
   currentSong;
   currentMode;
   playStore$: Observable<any>;
-  offset;
+  percent = 0;
+
   @ViewChild('audio', { static: true }) audio: ElementRef;
   audioEl: HTMLAudioElement;
 
@@ -55,27 +57,39 @@ export class PlayerComponent implements OnInit {
     this.playStore$.pipe(select(getPlayList)).subscribe(list => this.playList = list);
     this.playStore$.pipe(select(getCurrentSong)).subscribe(song => {
       this.currentSong = song;
-      if(song){
-
-      }
     });
     this.playStore$.pipe(select(getPlayMode)).subscribe(playMode => this.playMode = playMode);
 
   }
 
   onTimeUpdate(e: Event) {
-    let currentTime = (<HTMLAudioElement>e.target).currentTime;
-    this.currentTime = new DurationPipe().transform(currentTime*1000);
-    this.offset = currentTime/this.currentSong.dt;
+    this.time = (<HTMLAudioElement>e.target).currentTime;
+    this.percent = this.time/this.currentSong.dt*100;
+    this.currentTime = new DurationPipe().transform(this.time*1000);
+  }
+
+  timeEnded() {
+    // 当一首歌播放完成时
+    this.next();
+    this.time = 0;
+    this.percent = 0;
+    this.currentTime = '00: 00';
+    this.audioEl.currentTime = 0;
   }
 
   onCanPlay() {
-    this.play();
+    this.onToggle();
   }
 
-  private play() {
-    this.playing = true;
-    this.audioEl.play();
+  private onToggle() {
+    if(this.currentSong) {
+      this.playing = !this.playing;
+      if(this.playing){
+        this.audioEl.play();
+      }else{
+        this.audioEl.pause();
+      }
+    }
   }
 
   private pre() {
@@ -92,13 +106,12 @@ export class PlayerComponent implements OnInit {
     this.store$.dispatch(SetCurrentIndex({currentIndex: index}));
   }
 
-  pause() {
-    this.playing = false;
-    this.audioEl.pause();
-  }
-
-  computedCurrentTime(val) {
-    console.log(val);
+  percentSliderChange(percent) {
+    if(this.currentSong){
+      this.time = this.currentSong.dt*percent/(10**5);
+      this.currentTime = new DurationPipe().transform(this.time*1000);
+      this.audioEl.currentTime = this.time;
+    }
   }
 
   ngOnInit() {

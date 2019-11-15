@@ -1,34 +1,72 @@
-import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Inject, OnDestroy, Input, Output,EventEmitter } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef, AfterViewInit, Inject, OnDestroy, Input, Output,EventEmitter, OnChanges, SimpleChanges, forwardRef } from '@angular/core';
 import { fromEvent, Observable, Subscription } from 'rxjs';
-import { filter, tap, pluck, map, distinctUntilChanged, takeUntil } from 'rxjs/operators';
+import { filter, tap, pluck, map, distinctUntilChanged, takeUntil, concatAll } from 'rxjs/operators';
 import { DOCUMENT } from '@angular/common';
+import { ControlValueAccessor, NG_VALUE_ACCESSOR } from '@angular/forms';
 
 @Component({
   selector: 'app-slider',
   templateUrl: './slider.component.html',
-  styleUrls: ['./slider.component.scss']
+  styleUrls: ['./slider.component.scss'],
+  providers: [
+    {
+      provide: NG_VALUE_ACCESSOR,
+      useExisting: forwardRef(() => SliderComponent),
+      multi: true
+    }
+  ]
 })
-export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
+export class SliderComponent implements OnInit, AfterViewInit, OnDestroy,OnChanges,ControlValueAccessor {
 
   @ViewChild('slider', { static: true }) slider: ElementRef;
   sliderDom: HTMLElement;
   start$: Observable<number>;
   move$: Observable<any>;
   end$: Observable<Event>;
+  _all$: Subscription;
+  _end$: Subscription;
   resize$: Subscription;
-  offset = 0;
+  // offset = 0;
   domRect: DOMRect | ClientRect;
-  // @Input() endOffset = 0;
-  @Output() endOffsetChange = new EventEmitter<number>();
+
+  @ViewChild('mockSlider', { static: true }) mockSlider: ElementRef;
+  mockSliderDom: HTMLElement;
+  mouseDown$: Observable<any>;
+  mouseMove$: Observable<any>;
+  mouseUp$: Observable<any>;
+
+  get offset() {
+    return this._offset;
+  }
+
+  set offset(val) {
+    this._offset = val;
+  }
+  @Input() _offset = 0;
+  @Output() nzAfterChange = new EventEmitter<number>();
   constructor(
     @Inject(DOCUMENT) private doc: Document,
   ) { }
+
+  // 定义此方法，当数据变化时发送数据给外部组件
+  propagateChange =(_:any) => {};
+  writeValue(val) {
+    if(val) {
+      this.offset = val*1000;
+      this.propagateChange(this._offset);
+    }
+  }
+
+  registerOnChange(fn: any) {
+    this.propagateChange = fn;
+  }
+
+  registerOnTouched(fn: any) {}
 
   resize() {
     this.resize$ = fromEvent(window, 'resize').subscribe(
       _ => {
         this.domRect = this.sliderDom.getBoundingClientRect();
-        console.log(this.domRect);
       }
     )
   }
@@ -77,12 +115,37 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
     this.domRect = this.sliderDom.getBoundingClientRect(); // 获取元素块初始的值
     this.resize();
     this.draggableObservalbe();
-    this.start$.subscribe(
+    this._all$ = this.start$.pipe(
+      map(event => this.move$),
+      concatAll(),
+    ).subscribe(pos => {
+      this.computedOffset(pos);
+    })
+
+    // this.start$.subscribe(
+    //   res => {
+    //     this.computedOffset(res);
+    //     this.move$.subscribe(p => this.computedOffset(p));
+    //   }
+    // );
+    // this.start$.subscribe(
+    //   res => {
+    //     this.computedOffset(res);
+    //     this.move$.subscribe(p => this.computedOffset(p));
+    //   }
+    // );
+    this._end$ = this.end$.subscribe(
       res => {
-        this.computedOffset(res);
-        this.move$.subscribe(p => this.computedOffset(p));
+        this.nzAfterChange.emit(this.offset);
       }
-    );
+    )
+  }
+
+  ngOnChanges(change: SimpleChanges) {
+    // if(change['sliderValue']){
+    //   this.offset = this.sliderValue*1000;
+    //   this.sliderValueChange.emit(this.sliderValue);
+    // }
   }
 
   ngAfterViewInit() {
@@ -92,6 +155,12 @@ export class SliderComponent implements OnInit, AfterViewInit, OnDestroy {
   ngOnDestroy(): void {
     if (this.resize$) {
       this.resize$.unsubscribe();
+    }
+    if(this._all$){
+      this._all$.unsubscribe();
+    }
+    if(this._end$){
+      this._end$.unsubscribe();
     }
   }
 

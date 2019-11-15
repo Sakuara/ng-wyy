@@ -4,6 +4,7 @@ import { HomeComponent } from './home.component';
 import { RankComponent } from 'src/app/rank/rank.component';
 import { RecomandComponent } from './recomand/recomand.component';
 import { RecomandResolveService } from './services/recomand-resolve.service';
+import { SongSheetComponent } from './song-sheet/song-sheet.component';
 
 
 const routes: Routes = [
@@ -20,10 +21,14 @@ const routes: Routes = [
         resolve: {
           recomandDatas: RecomandResolveService
         }
-      },{
+      }, {
         path: 'rank',
         component: RankComponent
-      },{
+      }, {
+        path: 'sheet',
+        component: SongSheetComponent
+      },
+      {
         path: '',
         redirectTo: 'recomand',
         pathMatch: 'full'

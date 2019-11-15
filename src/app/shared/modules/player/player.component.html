@@ -9,10 +9,10 @@
         <div class="hand"></div>
         <div class="wrapper">
             <div class="btns">
-                <i class="pre" (click)="pre()"></i>
-                <i *ngIf="!playing" class="play-btn" (click)="play()"></i>
-                <i *ngIf="playing" class="pause-btn" (click)="pause()"></i>
-                <i class="next" (click)="next()"></i>
+                <i class="pre" (click)="$event.stopPropagation();pre()"></i>
+                <i [hidden]="playing" class="play-btn" (click)="$event.stopPropagation(); onToggle();"></i>
+                <i [hidden]="!playing" class="pause-btn" (click)="$event.stopPropagation(); onToggle()"></i>
+                <i class="next" (click)="$event.stopPropagation();next()"></i>
             </div>
             <div class="head">
                 <img [src]="picUrl" alt="music pic">
@@ -27,7 +27,7 @@
                     </ng-container>
                     <i class="link" nz-icon nzType="link" nzTheme="outline"></i>
                 </div>
-                <app-slider (endOffsetChange)="computedCurrentTime($event)"></app-slider>
+                <app-slider [(ngModel)]="percent" (nzAfterChange)="percentSliderChange($event)"></app-slider>
                 <span class="duration">
                     {{currentTime}}/{{ currentSong?.dt | duration }}
                 </span>
@@ -46,5 +46,5 @@
         </div>
     </div>
 
-    <audio #audio [src]="currentSong?.url" (canplay)="onCanPlay()" (timeupdate)="onTimeUpdate($event)"></audio>
+    <audio #audio [src]="currentSong?.url" (canplay)="onCanPlay()" (timeupdate)="onTimeUpdate($event)" (ended)="timeEnded()"></audio>
 </div>

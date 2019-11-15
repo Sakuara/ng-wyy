@@ -6,10 +6,11 @@ import { HomeComponent } from './home.component';
 import { CarouselComponent } from './components/carousel/carousel.component';
 import { RecomandComponent } from './recomand/recomand.component';
 import { LoginBoxComponent } from './components/login-box/login-box.component';
+import { SongSheetComponent } from './song-sheet/song-sheet.component';
 
 
 @NgModule({
-  declarations: [HomeComponent, CarouselComponent, RecomandComponent, LoginBoxComponent],
+  declarations: [HomeComponent, CarouselComponent, RecomandComponent, LoginBoxComponent, SongSheetComponent],
   imports: [
     SharedModule,
     HomeRoutingModule
